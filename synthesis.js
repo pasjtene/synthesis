@@ -1,15 +1,10 @@
 /**
  * Created by tene on 26/11/2017.
+ * Synthesis.js est une library (Bibliotheque) de fonctions javaScript qui seront utilisees dans les projet de la Sciete STC
+ * Apres avoir ecrit une fonction pour resoudre un probleme, les ingenieurs ne STC doivent s'assurer de la re-utilisabilite de la fonction,
+ * bien documenter la fonction et l'ajouter dans la bibliotheque
  */
 "use strict";
-/*! modernizr 3.5.0 (Custom Build) | MIT *
- * https://modernizr.com/download/?-audio-setclasses !*/
-// using modernizr to detect features https://modernizr.com/download?audio-setclasses
-//we want to detect if mp3 audio is supported before running mp3, or displaying something else
-!function(e,n,a){function o(e,n){return typeof e===n}function s(){var e,n,a,s,t,c,r;for(var u in l)if(l.hasOwnProperty(u)){if(e=[],n=l[u],n.name&&(e.push(n.name.toLowerCase()),n.options&&n.options.aliases&&n.options.aliases.length))for(a=0;a<n.options.aliases.length;a++)e.push(n.options.aliases[a].toLowerCase());for(s=o(n.fn,"function")?n.fn():n.fn,t=0;t<e.length;t++)c=e[t],r=c.split("."),1===r.length?Modernizr[r[0]]=s:(!Modernizr[r[0]]||Modernizr[r[0]]instanceof Boolean||(Modernizr[r[0]]=new Boolean(Modernizr[r[0]])),Modernizr[r[0]][r[1]]=s),i.push((s?"":"no-")+r.join("-"))}}function t(e){var n=u.className,a=Modernizr._config.classPrefix||"";if(p&&(n=n.baseVal),Modernizr._config.enableJSClass){var o=new RegExp("(^|\\s)"+a+"no-js(\\s|$)");n=n.replace(o,"$1"+a+"js$2")}Modernizr._config.enableClasses&&(n+=" "+a+e.join(" "+a),p?u.className.baseVal=n:u.className=n)}function c(){return"function"!=typeof n.createElement?n.createElement(arguments[0]):p?n.createElementNS.call(n,"http://www.w3.org/2000/svg",arguments[0]):n.createElement.apply(n,arguments)}var i=[],l=[],r={_version:"3.5.0",_config:{classPrefix:"",enableClasses:!0,enableJSClass:!0,usePrefixes:!0},_q:[],on:function(e,n){var a=this;setTimeout(function(){n(a[e])},0)},addTest:function(e,n,a){l.push({name:e,fn:n,options:a})},addAsyncTest:function(e){l.push({name:null,fn:e})}},Modernizr=function(){};Modernizr.prototype=r,Modernizr=new Modernizr;var u=n.documentElement,p="svg"===u.nodeName.toLowerCase();Modernizr.addTest("audio",function(){var e=c("audio"),n=!1;try{n=!!e.canPlayType,n&&(n=new Boolean(n),n.ogg=e.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/,""),n.mp3=e.canPlayType('audio/mpeg; codecs="mp3"').replace(/^no$/,""),n.opus=e.canPlayType('audio/ogg; codecs="opus"')||e.canPlayType('audio/webm; codecs="opus"').replace(/^no$/,""),n.wav=e.canPlayType('audio/wav; codecs="1"').replace(/^no$/,""),n.m4a=(e.canPlayType("audio/x-m4a;")||e.canPlayType("audio/aac;")).replace(/^no$/,""))}catch(a){}return n}),s(),t(i),delete r.addTest,delete r.addAsyncTest;for(var f=0;f<Modernizr._q.length;f++)Modernizr._q[f]();e.Modernizr=Modernizr}(window,document);
-
-
-
 
 var VERSION = '1.00';
 
@@ -105,7 +100,6 @@ var s = synthesis,
 //cette fonction cache ou affiche une autre zone quand on clique sur un lien.
 //la classe du lien a cliquer est le premier parametre de la fonction, et l'id de la zonne a affichee est le deuxieme parametre
 synthesis.showOrHide = function(linkClass, areaId) {
-    console.log("synthesis.showAndHide2...The area is: ", areaId);
     //le lien qu'on va cliquer pour afficher la zonne cachee (Le formulaire de login)
     //tous les liens on la meme classe
     var links  = document.getElementsByClassName(linkClass);
@@ -130,16 +124,14 @@ function showOrHidehelper(elmt, areaId){
     document.addEventListener('click', function(e){
         //on sait la zonne sible est cliquee, si son id est dans l'espace du click.
         var isAreaClicked = area.contains(e.target);
-        console.log("The id is ",e.target.id);
         var t = e.target.id
         if (t == elmt.id) {
             //si le click est sur le lien, la zone a affichee reste visible
             area.style.display = "block";
-            //return false;
         } else {
+
             //sinon, si la zonne sible n'est pas cliquee, on fait disparaitre
             if(!isAreaClicked){
-                console.log("The area is not clicked");
                 area.style.display = "none";
             }
         }
@@ -158,24 +150,4 @@ function formatBytes(bytes,decimals) {
         sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
         i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
-
-//This function makes sure that other window.onload events are not overwritten
-//onload is supported by all browser contary to EventListener
-function addOnload(func){
-    var last = window.onload;
-    var isReady = false;
-    //for cross browser support
-    document.addEventListener('DOMContentLoaded', function(){
-        console.log("DOM is Loaded");
-        isReady = true;
-        func();
-    })
-
-    window.onload = function(){
-        //if another script was calling onload, let's run it
-        if(last) last();
-        //then run our function;
-           if(isReady) func();
-    }
 }
